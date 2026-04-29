@@ -1,5 +1,7 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { HubConnectionState } from "@microsoft/signalr";
 import { useAuthStore } from "../../store/authStore";
+import { useOrderNotifications } from "../../hooks/useOrderNotifications";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `text-sm font-medium transition-colors ${
@@ -10,6 +12,7 @@ export default function AdminLayout() {
   const displayName = useAuthStore((s) => s.displayName);
   const clear = useAuthStore((s) => s.clear);
   const navigate = useNavigate();
+  const hubState = useOrderNotifications();
 
   function handleLogout() {
     clear();
@@ -27,6 +30,7 @@ export default function AdminLayout() {
             <NavLink to="/admin/orders" className={navLinkClass}>
               Orders
             </NavLink>
+            <LiveIndicator state={hubState} />
             <span className="hidden text-xs text-stone-500 sm:inline">
               {displayName}
             </span>
@@ -45,5 +49,25 @@ export default function AdminLayout() {
         <Outlet />
       </main>
     </div>
+  );
+}
+
+function LiveIndicator({ state }: { state: HubConnectionState }) {
+  const isLive = state === HubConnectionState.Connected;
+  const isReconnecting = state === HubConnectionState.Reconnecting;
+  const label = isLive ? "Live" : isReconnecting ? "Reconnecting…" : "Offline";
+  const dotClass = isLive
+    ? "bg-emerald-500"
+    : isReconnecting
+      ? "bg-amber-500 animate-pulse"
+      : "bg-stone-400";
+  return (
+    <span
+      className="hidden items-center gap-1.5 text-xs text-stone-500 sm:inline-flex"
+      title={`Realtime: ${label}`}
+    >
+      <span className={`h-2 w-2 rounded-full ${dotClass}`} />
+      {label}
+    </span>
   );
 }
