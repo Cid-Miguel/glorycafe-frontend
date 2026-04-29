@@ -1,5 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout";
+import AdminLayout from "../components/admin/AdminLayout";
+import RequireAuth from "../components/admin/RequireAuth";
 import Home from "../pages/public/Home";
 import Shop from "../pages/public/Shop";
 import About from "../pages/public/About";
@@ -8,6 +10,9 @@ import Checkout from "../pages/public/Checkout";
 import OrderConfirm from "../pages/public/OrderConfirm";
 import HealthCheck from "../pages/public/HealthCheck";
 import NotFound from "../pages/public/NotFound";
+import AdminLogin from "../pages/admin/AdminLogin";
+import AdminOrders from "../pages/admin/AdminOrders";
+import AdminOrderDetail from "../pages/admin/AdminOrderDetail";
 
 export default function AppRouter() {
   return (
@@ -21,8 +26,23 @@ export default function AppRouter() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order/:id/confirm" element={<OrderConfirm />} />
           <Route path="/health" element={<HealthCheck />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
+
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route
+          path="/admin"
+          element={
+            <RequireAuth>
+              <AdminLayout />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<Navigate to="orders" replace />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/:id" element={<AdminOrderDetail />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
