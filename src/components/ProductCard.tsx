@@ -1,3 +1,4 @@
+import { useCartStore } from "../store/cartStore";
 import type { Product } from "../types/catalog";
 
 interface Props {
@@ -5,6 +6,11 @@ interface Props {
 }
 
 export default function ProductCard({ product }: Props) {
+  const addItem = useCartStore((s) => s.addItem);
+  const itemInCart = useCartStore((s) =>
+    s.items.find((i) => i.productId === product.id),
+  );
+
   return (
     <article className="flex gap-4 rounded-lg border border-stone-200 bg-white p-4 shadow-sm">
       <div
@@ -35,9 +41,14 @@ export default function ProductCard({ product }: Props) {
         <button
           type="button"
           disabled={!product.isAvailable}
+          onClick={() => addItem(product)}
           className="mt-3 self-start rounded-full bg-amber-700 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-amber-800 disabled:cursor-not-allowed disabled:bg-stone-300"
         >
-          {product.isAvailable ? "Add to cart" : "Unavailable"}
+          {!product.isAvailable
+            ? "Unavailable"
+            : itemInCart
+              ? `In cart · ${itemInCart.quantity}`
+              : "Add to cart"}
         </button>
       </div>
     </article>
