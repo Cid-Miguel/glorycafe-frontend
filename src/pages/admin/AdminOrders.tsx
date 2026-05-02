@@ -121,8 +121,8 @@ function OrderRow({ order }: { order: AdminOrderSummary }) {
           className="flex-1 hover:opacity-80"
         >
           <div className="flex items-baseline gap-2">
-            <span className="font-mono text-sm text-stone-500">
-              #{order.id}
+            <span className="font-mono text-base font-bold text-amber-700">
+              #{order.dailyOrderNumber}
             </span>
             <span className="font-semibold text-stone-900">
               {order.customerFirstName} {order.customerLastName}

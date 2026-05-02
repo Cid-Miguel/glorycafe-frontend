@@ -2,12 +2,14 @@ import { Link, useLocation, useParams } from "react-router-dom";
 
 interface LocationState {
   totalAmount?: number;
+  dailyOrderNumber?: number;
 }
 
 export default function OrderConfirm() {
   const { id } = useParams<{ id: string }>();
   const state = useLocation().state as LocationState | null;
   const totalAmount = state?.totalAmount;
+  const dailyOrderNumber = state?.dailyOrderNumber;
 
   return (
     <section className="mx-auto max-w-md px-4 py-16 text-center">
@@ -19,19 +21,33 @@ export default function OrderConfirm() {
         We've received your order. The cafe is being notified.
       </p>
 
-      <div className="mt-6 rounded-lg border border-stone-200 bg-white p-5 text-left shadow-sm">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-stone-500">Order number</span>
-          <span className="font-mono font-semibold text-stone-900">
-            #{id}
-          </span>
+      {dailyOrderNumber !== undefined && (
+        <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-6 text-center">
+          <p className="text-xs uppercase tracking-wide text-amber-700">
+            Today's order number
+          </p>
+          <p className="mt-1 font-mono text-5xl font-bold text-amber-900">
+            #{dailyOrderNumber}
+          </p>
+          <p className="mt-2 text-xs text-amber-700">
+            Show this at the counter when you collect your order.
+          </p>
         </div>
+      )}
+
+      <div className="mt-4 rounded-lg border border-stone-200 bg-white p-5 text-left shadow-sm">
         {totalAmount !== undefined && (
-          <div className="mt-2 flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-sm">
             <span className="text-stone-500">Total</span>
             <span className="font-semibold text-stone-900">
               ${totalAmount.toFixed(2)}
             </span>
+          </div>
+        )}
+        {id && (
+          <div className="mt-2 flex items-center justify-between text-xs">
+            <span className="text-stone-400">Reference</span>
+            <span className="font-mono text-stone-400">#{id}</span>
           </div>
         )}
       </div>

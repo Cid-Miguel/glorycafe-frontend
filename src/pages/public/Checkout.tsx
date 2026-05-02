@@ -54,7 +54,10 @@ export default function Checkout() {
     onSuccess: (data) => {
       clearCart();
       navigate(`/order/${data.orderId}/confirm`, {
-        state: { totalAmount: data.totalAmount },
+        state: {
+          totalAmount: data.totalAmount,
+          dailyOrderNumber: data.dailyOrderNumber,
+        },
       });
     },
     onError: (err) => {

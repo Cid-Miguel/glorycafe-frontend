@@ -28,11 +28,16 @@ export default function AdminOrderDetail() {
         <>
           <header className="mt-2 flex items-baseline justify-between">
             <h1 className="text-2xl font-bold text-stone-900">
-              <span className="font-mono text-stone-400">#{data.id}</span>{" "}
+              <span className="font-mono text-amber-700">
+                #{data.dailyOrderNumber}
+              </span>{" "}
               {data.customerFirstName} {data.customerLastName}
             </h1>
             <span className="text-sm text-stone-500">{data.status}</span>
           </header>
+          <p className="mt-1 text-xs text-stone-400">
+            {data.orderDate} · ref #{data.id}
+          </p>
 
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Block label="Phone" value={data.customerPhone ?? "—"} />

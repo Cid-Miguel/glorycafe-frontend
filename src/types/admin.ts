@@ -13,6 +13,8 @@ export interface LoginResponse {
 
 export interface AdminOrderSummary {
   id: number;
+  orderDate: string;
+  dailyOrderNumber: number;
   customerFirstName: string;
   customerLastName: string;
   estimatedPickupTime: string;
@@ -32,6 +34,8 @@ export interface AdminOrderItem {
 
 export interface AdminOrderDetail {
   id: number;
+  orderDate: string;
+  dailyOrderNumber: number;
   customerFirstName: string;
   customerLastName: string;
   customerPhone: string | null;

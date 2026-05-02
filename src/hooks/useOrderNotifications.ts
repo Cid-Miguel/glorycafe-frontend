@@ -13,6 +13,8 @@ const ORDER_CREATED_EVENT = "orderCreated";
 
 export interface OrderCreatedPayload {
   id: number;
+  orderDate: string;
+  dailyOrderNumber: number;
   customerFirstName: string;
   customerLastName: string;
   totalAmount: number;

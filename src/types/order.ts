@@ -9,6 +9,8 @@ export interface CreateOrderRequest {
 
 export interface CreateOrderResponse {
   orderId: number;
+  orderDate: string;
+  dailyOrderNumber: number;
   totalAmount: number;
 }
 
