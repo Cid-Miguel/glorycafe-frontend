@@ -46,3 +46,16 @@ export interface AdminOrderDetail {
   createdAt: string;
   items: AdminOrderItem[];
 }
+
+export interface ProductInput {
+  name: string;
+  description: string;
+  price: number;
+  categoryId: number;
+  isAvailable: boolean;
+}
+
+export interface CategoryInput {
+  name: string;
+  displayOrder: number;
+}

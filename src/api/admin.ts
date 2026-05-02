@@ -2,8 +2,10 @@ import { apiClient } from "./client";
 import type {
   AdminOrderDetail,
   AdminOrderSummary,
+  CategoryInput,
   LoginResponse,
   OrderStatus,
+  ProductInput,
 } from "../types/admin";
 
 export async function adminLogin(
@@ -39,4 +41,64 @@ export async function updateOrderStatus(
   status: OrderStatus,
 ): Promise<void> {
   await apiClient.patch(`/api/admin/orders/${id}/status`, { status });
+}
+
+// ── Products ───────────────────────────────────────────────────────────
+
+export async function createProduct(input: ProductInput): Promise<number> {
+  const { data } = await apiClient.post<{ id: number }>(
+    "/api/admin/products",
+    input,
+  );
+  return data.id;
+}
+
+export async function updateProduct(
+  id: number,
+  input: ProductInput,
+): Promise<void> {
+  await apiClient.put(`/api/admin/products/${id}`, input);
+}
+
+export async function deleteProduct(id: number): Promise<void> {
+  await apiClient.delete(`/api/admin/products/${id}`);
+}
+
+export async function uploadProductImage(
+  id: number,
+  file: File,
+): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+  const { data } = await apiClient.post<{ imageUrl: string }>(
+    `/api/admin/products/${id}/image`,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } },
+  );
+  return data.imageUrl;
+}
+
+export async function deleteProductImage(id: number): Promise<void> {
+  await apiClient.delete(`/api/admin/products/${id}/image`);
+}
+
+// ── Categories ─────────────────────────────────────────────────────────
+
+export async function createCategory(input: CategoryInput): Promise<number> {
+  const { data } = await apiClient.post<{ id: number }>(
+    "/api/admin/categories",
+    input,
+  );
+  return data.id;
+}
+
+export async function updateCategory(
+  id: number,
+  input: CategoryInput,
+): Promise<void> {
+  await apiClient.put(`/api/admin/categories/${id}`, input);
+}
+
+export async function deleteCategory(id: number): Promise<void> {
+  await apiClient.delete(`/api/admin/categories/${id}`);
 }

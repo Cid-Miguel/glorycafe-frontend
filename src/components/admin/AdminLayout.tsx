@@ -30,6 +30,9 @@ export default function AdminLayout() {
             <NavLink to="/admin/orders" className={navLinkClass}>
               Orders
             </NavLink>
+            <NavLink to="/admin/products" className={navLinkClass}>
+              Products
+            </NavLink>
             <LiveIndicator state={hubState} />
             <span className="hidden text-xs text-stone-500 sm:inline">
               {displayName}
