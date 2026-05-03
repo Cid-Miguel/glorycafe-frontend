@@ -1,12 +1,70 @@
 @import "tailwindcss";
 
-html, body, #root {
-  height: 100%;
+/*
+ * Brand tokens — Glory Cafe.
+ * Palette inspired by the cafe's circular logo (deep espresso + coral
+ * tones) and Colombian specialty-coffee culture: warm cream backgrounds,
+ * terracotta CTAs, espresso text. Admin pages keep the neutral
+ * stone/amber palette intentionally (it's a tool, not a storefront).
+ */
+@theme {
+  --color-espresso: #1c100b;
+  --color-coffee: #3d2418;
+  --color-coffee-soft: #5a3a2a;
+  --color-cream: #f5ebdc;
+  --color-cream-200: #efe3d0;
+  --color-cream-300: #e4d4ba;
+  --color-parchment: #faf6ee;
+  --color-terracotta: #c76a4f;
+  --color-terracotta-dark: #a8533c;
+  --color-clay: #d97757;
+  --color-moss: #5a6b47;
+
+  --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
+  color: var(--color-espresso);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /*
+   * Background image is fixed to the viewport so it stays visible
+   * from the top of the page all the way down to the footer — the
+   * footer paints over it with bg-espresso. A soft cream overlay
+   * keeps text legible without washing the image out.
+   */
+  background-color: var(--color-cream);
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(245, 235, 220, 0.65),
+      rgba(245, 235, 220, 0.78)
+    ),
+    url("/background.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/*
+ * Fraunces is a variable font with optical sizing and a softness axis.
+ * Bumping `opsz` and `SOFT` on display headings gives big text more
+ * curvature and personality, matching the cafe's hand-drawn logo.
+ */
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 96, "SOFT" 50;
+  letter-spacing: -0.02em;
 }

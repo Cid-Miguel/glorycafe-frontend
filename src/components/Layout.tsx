@@ -5,7 +5,7 @@ import CartBar from "./CartBar";
 
 export default function Layout() {
   return (
-    <div className="flex min-h-full flex-col bg-stone-50">
+    <div className="flex min-h-full flex-col">
       <Header />
       <main className="flex-1">
         <Outlet />

@@ -1,20 +1,33 @@
 import { NavLink } from "react-router-dom";
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-  `text-sm font-medium transition-colors ${
-    isActive ? "text-amber-700" : "text-stone-600 hover:text-stone-900"
+  `text-sm font-medium tracking-wide transition-colors ${
+    isActive
+      ? "text-terracotta"
+      : "text-coffee hover:text-espresso"
   }`;
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-10 border-b border-stone-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
-        <NavLink to="/" className="text-lg font-semibold tracking-tight text-stone-900">
-          Glory Cafe
+    <header className="sticky top-0 z-20 border-b border-cream-300 bg-cream/90 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4">
+        <NavLink to="/" className="flex items-center gap-2.5">
+          <img
+            src="/logocafe.jpg"
+            alt="Glory Cafe logo"
+            className="h-10 w-10 rounded-full object-cover ring-1 ring-cream-300"
+          />
+          <span className="font-display text-xl font-semibold text-espresso">
+            Glory Cafe
+          </span>
         </NavLink>
-        <nav className="flex gap-5">
-          <NavLink to="/shop" className={navLinkClass}>Shop</NavLink>
-          <NavLink to="/about" className={navLinkClass}>About</NavLink>
+        <nav className="flex items-center gap-5">
+          <NavLink to="/shop" className={navLinkClass}>
+            Menu
+          </NavLink>
+          <NavLink to="/about" className={navLinkClass}>
+            Visit
+          </NavLink>
         </nav>
       </div>
     </header>

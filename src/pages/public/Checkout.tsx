@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { createOrder } from "../../api/orders";
 import { selectSubtotal, useCartStore } from "../../store/cartStore";
+import { BTN_PRIMARY_LG, BTN_PRIMARY_MD } from "../../styles/buttons";
 import type {
   ApiValidationProblem,
   CreateOrderRequest,
@@ -75,16 +76,13 @@ export default function Checkout() {
   if (items.length === 0) {
     return (
       <section className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-stone-900">
+        <h1 className="font-display text-3xl text-espresso">
           Your cart is empty
         </h1>
-        <p className="mt-2 text-sm text-stone-500">
+        <p className="mt-2 text-sm text-coffee-soft">
           Add some items before checking out.
         </p>
-        <Link
-          to="/shop"
-          className="mt-6 inline-flex rounded-full bg-amber-700 px-6 py-2 text-sm font-medium text-white hover:bg-amber-800"
-        >
+        <Link to="/shop" className={`mt-6 ${BTN_PRIMARY_MD}`}>
           Browse menu
         </Link>
       </section>
@@ -109,34 +107,38 @@ export default function Checkout() {
   }
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-8">
+    <section className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
       <header className="mb-6">
-        <h1 className="text-2xl font-bold text-stone-900">Checkout</h1>
-        <p className="text-sm text-stone-500">
+        <h1 className="font-display text-3xl text-espresso sm:text-4xl">
+          Checkout
+        </h1>
+        <p className="mt-1 text-sm text-coffee-soft">
           We'll have it ready for pickup at your time.
         </p>
       </header>
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 rounded-lg border border-stone-200 bg-white p-5 shadow-sm"
+        className="space-y-4 rounded-2xl border border-cream-300 bg-parchment p-5 shadow-sm sm:p-6"
       >
-        <Field
-          label="First name"
-          name="customerFirstName"
-          value={firstName}
-          onChange={setFirstName}
-          required
-          errors={errors}
-        />
-        <Field
-          label="Last name"
-          name="customerLastName"
-          value={lastName}
-          onChange={setLastName}
-          required
-          errors={errors}
-        />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Field
+            label="First name"
+            name="customerFirstName"
+            value={firstName}
+            onChange={setFirstName}
+            required
+            errors={errors}
+          />
+          <Field
+            label="Last name"
+            name="customerLastName"
+            value={lastName}
+            onChange={setLastName}
+            required
+            errors={errors}
+          />
+        </div>
         <Field
           label="Phone (Australian format)"
           name="customerPhone"
@@ -154,11 +156,11 @@ export default function Checkout() {
           placeholder="you@example.com"
           errors={errors}
         />
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-coffee-soft">
           At least one contact (phone or email) is required.
         </p>
         {errors.Contact && (
-          <p className="text-sm text-red-600">{errors.Contact[0]}</p>
+          <p className="text-sm text-terracotta-dark">{errors.Contact[0]}</p>
         )}
 
         <Field
@@ -173,30 +175,30 @@ export default function Checkout() {
           errors={errors}
         />
 
-        <div className="border-t border-stone-200 pt-4">
+        <div className="border-t border-cream-300 pt-4">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-stone-600">Total</span>
-            <span className="text-lg font-semibold text-stone-900">
+            <span className="text-sm text-coffee-soft">Total</span>
+            <span className="font-display text-2xl font-semibold text-espresso">
               ${subtotal.toFixed(2)}
             </span>
           </div>
-          <p className="mt-1 text-xs text-stone-400">
+          <p className="mt-1 text-xs text-coffee-soft/70">
             Online payment will be added soon. For now your order is recorded
             and the cafe is notified.
           </p>
         </div>
 
         {errors._ && (
-          <p className="text-sm text-red-600">{errors._[0]}</p>
+          <p className="text-sm text-terracotta-dark">{errors._[0]}</p>
         )}
         {errors.Items && (
-          <p className="text-sm text-red-600">{errors.Items[0]}</p>
+          <p className="text-sm text-terracotta-dark">{errors.Items[0]}</p>
         )}
 
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="w-full rounded-full bg-amber-700 px-6 py-3 text-base font-medium text-white hover:bg-amber-800 disabled:cursor-not-allowed disabled:bg-stone-300"
+          className={`w-full ${BTN_PRIMARY_LG}`}
         >
           {mutation.isPending ? "Placing order…" : "Place order"}
         </button>
@@ -231,9 +233,12 @@ function Field({
   const fieldErrors = errors[name];
   return (
     <div>
-      <label className="block text-sm font-medium text-stone-700" htmlFor={name}>
+      <label
+        className="block text-xs font-medium uppercase tracking-wide text-coffee-soft"
+        htmlFor={name}
+      >
         {label}
-        {required && <span className="text-red-500"> *</span>}
+        {required && <span className="text-terracotta"> *</span>}
       </label>
       <input
         id={name}
@@ -245,10 +250,10 @@ function Field({
         placeholder={placeholder}
         min={min}
         max={max}
-        className="mt-1 block w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-amber-600 focus:outline-none focus:ring-1 focus:ring-amber-600"
+        className="mt-1 block w-full rounded-md border border-cream-300 bg-white px-3 py-2 text-sm text-espresso shadow-sm focus:border-terracotta focus:outline-none focus:ring-1 focus:ring-terracotta"
       />
       {fieldErrors && fieldErrors.length > 0 && (
-        <p className="mt-1 text-xs text-red-600">{fieldErrors[0]}</p>
+        <p className="mt-1 text-xs text-terracotta-dark">{fieldErrors[0]}</p>
       )}
     </div>
   );

@@ -17,24 +17,31 @@ export default function Shop() {
   const error = categoriesQuery.error ?? productsQuery.error;
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-8">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold text-stone-900">Menu</h1>
-        <p className="text-sm text-stone-500">Tap to add items to your cart.</p>
+    <section className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
+      <header className="mb-8 text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-terracotta">
+          Today's menu
+        </p>
+        <h1 className="font-display mt-2 text-4xl text-espresso sm:text-5xl">
+          Pick your cup.
+        </h1>
+        <p className="mt-2 text-sm text-coffee-soft">
+          Tap to add. We'll have it ready when you walk in.
+        </p>
       </header>
 
       {isLoading && (
-        <p className="text-stone-500">Loading menu…</p>
+        <p className="text-center text-coffee-soft">Loading menu…</p>
       )}
 
       {error && (
-        <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+        <div className="rounded-md border border-terracotta/30 bg-terracotta/10 p-3 text-center text-sm text-terracotta-dark">
           Could not load the menu. Please try again.
         </div>
       )}
 
       {categoriesQuery.data && productsQuery.data && (
-        <div className="space-y-8">
+        <div className="space-y-10">
           {categoriesQuery.data.map((category) => {
             const items = productsQuery.data.filter(
               (p) => p.categoryId === category.id,
@@ -63,7 +70,10 @@ function CategorySection({
 }) {
   return (
     <div>
-      <h2 className="mb-3 text-lg font-semibold text-stone-800">{title}</h2>
+      <div className="mb-4 flex items-baseline gap-3">
+        <h2 className="font-display text-2xl text-espresso">{title}</h2>
+        <span className="h-px flex-1 bg-cream-300" />
+      </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
