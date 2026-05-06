@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BTN_DARK_MD, BTN_PRIMARY_LG } from "../../styles/buttons";
+import { BTN_DARK_LG, BTN_PRIMARY_LG } from "../../styles/buttons";
 
 const INSTAGRAM_URL = "https://www.instagram.com/glory.cafe.espresso/";
 
@@ -42,10 +42,11 @@ export default function Home() {
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noreferrer"
-              className={BTN_DARK_MD}
+              className={BTN_DARK_LG}
+              aria-label="Open Glory Cafe Instagram"
             >
-              <InstagramIcon className="h-4 w-4" />
-              @glory.cafe.espresso
+              <InstagramIcon className="h-5 w-5" />
+              Instagram
             </a>
           </div>
         </div>

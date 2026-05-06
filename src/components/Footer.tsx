@@ -26,10 +26,11 @@ export default function Footer() {
           href={INSTAGRAM_URL}
           target="_blank"
           rel="noreferrer"
-          className={`gap-2 ${BTN_PRIMARY_MD}`}
+          className={BTN_PRIMARY_MD}
+          aria-label="Open Glory Cafe Instagram"
         >
-          <InstagramIcon className="h-4 w-4" />
-          @glory.cafe.espresso
+          <InstagramIcon className="h-5 w-5" />
+          Instagram
         </a>
 
         <p className="text-xs text-cream/50">
