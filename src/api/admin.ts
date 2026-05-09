@@ -3,6 +3,7 @@ import type {
   AdminOrderDetail,
   AdminOrderSummary,
   CategoryInput,
+  ChangePasswordRequest,
   LoginResponse,
   OrderStatus,
   ProductInput,
@@ -17,6 +18,12 @@ export async function adminLogin(
     { email, password },
   );
   return data;
+}
+
+export async function changeAdminPassword(
+  request: ChangePasswordRequest,
+): Promise<void> {
+  await apiClient.post("/api/admin/auth/change-password", request);
 }
 
 export async function getAdminOrders(

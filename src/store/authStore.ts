@@ -5,11 +5,15 @@ interface AuthState {
   accessToken: string | null;
   expiresAtUtc: string | null;
   displayName: string | null;
+  mustChangePassword: boolean;
   setSession: (s: {
     accessToken: string;
     expiresAtUtc: string;
     displayName: string;
+    mustChangePassword: boolean;
   }) => void;
+  /** Called after a successful password rotation. */
+  markPasswordChanged: () => void;
   clear: () => void;
 }
 
@@ -19,10 +23,22 @@ export const useAuthStore = create<AuthState>()(
       accessToken: null,
       expiresAtUtc: null,
       displayName: null,
-      setSession: ({ accessToken, expiresAtUtc, displayName }) =>
-        set({ accessToken, expiresAtUtc, displayName }),
+      mustChangePassword: false,
+      setSession: ({
+        accessToken,
+        expiresAtUtc,
+        displayName,
+        mustChangePassword,
+      }) =>
+        set({ accessToken, expiresAtUtc, displayName, mustChangePassword }),
+      markPasswordChanged: () => set({ mustChangePassword: false }),
       clear: () =>
-        set({ accessToken: null, expiresAtUtc: null, displayName: null }),
+        set({
+          accessToken: null,
+          expiresAtUtc: null,
+          displayName: null,
+          mustChangePassword: false,
+        }),
     }),
     { name: "glorycafe.auth" },
   ),

@@ -11,6 +11,7 @@ import OrderConfirm from "../pages/public/OrderConfirm";
 import HealthCheck from "../pages/public/HealthCheck";
 import NotFound from "../pages/public/NotFound";
 import AdminLogin from "../pages/admin/AdminLogin";
+import AdminChangePassword from "../pages/admin/AdminChangePassword";
 import AdminOrders from "../pages/admin/AdminOrders";
 import AdminOrderDetail from "../pages/admin/AdminOrderDetail";
 import AdminProducts from "../pages/admin/AdminProducts";
@@ -31,6 +32,7 @@ export default function AppRouter() {
         </Route>
 
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/change-password" element={<AdminChangePassword />} />
         <Route
           path="/admin"
           element={

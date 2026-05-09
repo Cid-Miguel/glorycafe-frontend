@@ -9,6 +9,13 @@ export interface LoginResponse {
   accessToken: string;
   expiresAtUtc: string;
   displayName: string;
+  mustChangePassword: boolean;
+}
+
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 }
 
 export interface AdminOrderSummary {

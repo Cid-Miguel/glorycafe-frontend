@@ -19,6 +19,13 @@ export default function AdminLogin() {
     mutationFn: () => adminLogin(email, password),
     onSuccess: (data) => {
       setSession(data);
+      // If the seeded password is still in use, the dashboard is off-
+      // limits until rotation. Skip any deep-link `from` and route
+      // straight to the change-password screen.
+      if (data.mustChangePassword) {
+        navigate("/admin/change-password", { replace: true });
+        return;
+      }
       const from =
         (location.state as { from?: string } | null)?.from ?? "/admin/orders";
       navigate(from, { replace: true });
@@ -39,6 +46,9 @@ export default function AdminLogin() {
   });
 
   if (isSessionValid(sessionState)) {
+    if (sessionState.mustChangePassword) {
+      return <Navigate to="/admin/change-password" replace />;
+    }
     return <Navigate to="/admin/orders" replace />;
   }
 
